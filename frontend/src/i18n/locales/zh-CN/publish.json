@@ -1,0 +1,34 @@
+{
+  "publish_button": "发布此{{type}}",
+  "already_published": "已发布",
+  "modal": {
+    "title": "发布作品",
+    "preview": "预览",
+    "title_label": "标题",
+    "title_placeholder": "为你的作品输入标题",
+    "description_label": "描述（可选）",
+    "description_placeholder": "描述你的创作...",
+    "prompt_label": "生成提示词",
+    "publish_button": "发布",
+    "publishing": "发布中..."
+  },
+  "error": {
+    "title_required": "标题不能为空",
+    "publish_failed": "发布失败"
+  },
+  "success": {
+    "published": "发布成功",
+    "published_description": "你的作品现在可以在展示墙查看"
+  },
+  "gallery": {
+    "title": "已发布作品",
+    "videos": "视频",
+    "images": "图片",
+    "by": "作者",
+    "load_more": "加载更多",
+    "no_works": "暂无已发布作品",
+    "no_thumbnail": "暂无缩略图",
+    "create_similar": "做同款",
+    "like": "点赞"
+  }
+}

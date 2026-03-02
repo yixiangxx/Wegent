@@ -21,6 +21,7 @@ import { useChatStreamContext } from '@/features/tasks/contexts/chatStreamContex
 import { paths } from '@/config/paths'
 import { useSearchShortcut } from '@/features/tasks/hooks/useSearchShortcut'
 import { ChatArea } from '@/features/tasks/components/chat'
+import { PublishedGallery } from '@/features/tasks/components/gallery/PublishedGallery'
 
 /**
  * Desktop-specific implementation of Generate Page
@@ -165,15 +166,23 @@ export function GeneratePageDesktop() {
           <GithubStarButton />
         </TopNavigation>
         {/* Chat area with current generation mode */}
-        <ChatArea
-          teams={filteredTeams}
-          isTeamsLoading={isTeamsLoading}
-          selectedTeamForNewTask={_selectedTeamForNewTask}
-          showRepositorySelector={false}
-          taskType={generateMode}
-          onRefreshTeams={handleRefreshTeams}
-          onGenerateModeChange={setGenerateMode}
-        />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
+            <ChatArea
+              teams={filteredTeams}
+              isTeamsLoading={isTeamsLoading}
+              selectedTeamForNewTask={_selectedTeamForNewTask}
+              showRepositorySelector={false}
+              taskType={generateMode}
+              onRefreshTeams={handleRefreshTeams}
+              onGenerateModeChange={setGenerateMode}
+            />
+          </div>
+          {/* Published Gallery Section */}
+          <div className="border-t border-border p-6 bg-surface overflow-y-auto max-h-[50vh]">
+            <PublishedGallery />
+          </div>
+        </div>
       </div>
       {/* Search Dialog - rendered at page level for global shortcut support */}
       <SearchDialog

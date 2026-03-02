@@ -1408,6 +1408,7 @@ const MessageBubble = memo(
                         theme={theme}
                         blocks={msg.result.blocks}
                         annotations={msg.result?.annotations}
+                        subtaskId={msg.subtaskId}
                       />
                       <SourceReferences sources={msg.sources || msg.result?.sources || []} />
                       <GeminiAnnotations annotations={msg.result?.annotations || []} />

@@ -15,6 +15,7 @@ import { useTaskContext } from '@/features/tasks/contexts/taskContext'
 import { useChatStreamContext } from '@/features/tasks/contexts/chatStreamContext'
 import { useSearchShortcut } from '@/features/tasks/hooks/useSearchShortcut'
 import { ChatArea } from '@/features/tasks/components/chat'
+import { PublishedGallery } from '@/features/tasks/components/gallery/PublishedGallery'
 
 /**
  * Mobile-specific implementation of Generate Page
@@ -130,15 +131,23 @@ export function GeneratePageMobile() {
           <ThemeToggle />
         </TopNavigation>
         {/* Chat area with current generation mode */}
-        <ChatArea
-          teams={filteredTeams}
-          isTeamsLoading={isTeamsLoading}
-          selectedTeamForNewTask={_selectedTeamForNewTask}
-          showRepositorySelector={false}
-          taskType={generateMode}
-          onRefreshTeams={handleRefreshTeams}
-          onGenerateModeChange={setGenerateMode}
-        />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
+            <ChatArea
+              teams={filteredTeams}
+              isTeamsLoading={isTeamsLoading}
+              selectedTeamForNewTask={_selectedTeamForNewTask}
+              showRepositorySelector={false}
+              taskType={generateMode}
+              onRefreshTeams={handleRefreshTeams}
+              onGenerateModeChange={setGenerateMode}
+            />
+          </div>
+          {/* Published Gallery Section */}
+          <div className="border-t border-border p-4 bg-surface overflow-y-auto max-h-[40vh]">
+            <PublishedGallery />
+          </div>
+        </div>
       </div>
       {/* Search Dialog - rendered at page level for global shortcut support */}
       <SearchDialog

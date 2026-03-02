@@ -15,6 +15,7 @@ import { processCitePatterns } from '../../../utils/processCitePatterns'
 import type { GeminiAnnotation } from '@/types/socket'
 import VideoPlayer from '../VideoPlayer'
 import { ImageGallery } from '../ImageGallery'
+import { PublishButton } from '../../publish/PublishButton'
 
 interface MixedContentViewProps {
   thinking: ThinkingStep[] | null
@@ -23,6 +24,7 @@ interface MixedContentViewProps {
   theme: 'light' | 'dark'
   blocks?: MessageBlock[] // NEW: Block-based rendering support
   annotations?: GeminiAnnotation[]
+  subtaskId?: number // For publish feature
 }
 
 /**
@@ -40,6 +42,7 @@ const MixedContentView = memo(function MixedContentView({
   theme,
   blocks,
   annotations,
+  subtaskId,
 }: MixedContentViewProps) {
   const { t } = useTranslation('chat')
   // Extract tools from thinking (legacy mode)
@@ -283,6 +286,18 @@ const MixedContentView = memo(function MixedContentView({
               {item.isPlaceholder && item.message && (
                 <div className="text-xs text-text-muted">{item.message}</div>
               )}
+              {/* Publish button - show when video is ready */}
+              {!item.isPlaceholder && subtaskId && (
+                <div className="flex justify-end">
+                  <PublishButton
+                    subtaskId={subtaskId}
+                    contentType="video"
+                    videoUrl={item.videoUrl}
+                    videoThumbnail={item.thumbnail ?? undefined}
+                    videoDuration={item.duration ?? undefined}
+                  />
+                </div>
+              )}
             </div>
           )
         } else if (item.type === 'image') {
@@ -305,13 +320,25 @@ const MixedContentView = memo(function MixedContentView({
                   </div>
                 </div>
               ) : item.imageUrls && item.imageUrls.length > 0 ? (
-                // Show generated images
-                <ImageGallery
-                  images={item.imageUrls.map((url: string, i: number) => ({
-                    url,
-                    attachmentId: item.imageAttachmentIds?.[i],
-                  }))}
-                />
+                <>
+                  {/* Show generated images */}
+                  <ImageGallery
+                    images={item.imageUrls.map((url: string, i: number) => ({
+                      url,
+                      attachmentId: item.imageAttachmentIds?.[i],
+                    }))}
+                  />
+                  {/* Publish button - show when image is ready */}
+                  {subtaskId && (
+                    <div className="flex justify-end">
+                      <PublishButton
+                        subtaskId={subtaskId}
+                        contentType="image"
+                        imageUrls={item.imageUrls}
+                      />
+                    </div>
+                  )}
+                </>
               ) : null}
             </div>
           )

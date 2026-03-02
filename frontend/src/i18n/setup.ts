@@ -31,6 +31,7 @@ async function loadTranslations() {
     'projects',
     'pet',
     'devices',
+    'publish',
   ]
 
   for (const lng of supportedLanguages) {
@@ -85,6 +86,7 @@ export async function initI18n() {
       'projects',
       'pet',
       'devices',
+      'publish',
     ],
   })
 

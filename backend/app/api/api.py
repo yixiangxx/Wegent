@@ -16,6 +16,7 @@ from app.api.endpoints import (
     openapi_responses,
     pet,
     projects,
+    published_content,
     quota,
     rag,
     repository,
@@ -134,6 +135,9 @@ api_router.include_router(
 )
 # Unified share endpoints (Team, Task, KnowledgeBase)
 api_router.include_router(share.router, prefix="/share", tags=["share"])
+api_router.include_router(
+    published_content.router, prefix="/published-contents", tags=["published-contents"]
+)
 api_router.include_router(tables.router, prefix="/tables", tags=["tables"])
 api_router.include_router(rag.router, prefix="/rag", tags=["rag"])
 api_router.include_router(
